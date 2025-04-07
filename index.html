@@ -20,26 +20,30 @@
       z-index: 50;
     }
 
-    /* Warna transparan */
     .transparent {
       background-color: rgba(128, 128, 128, 0.5);
     }
 
-    /* Transisi halus untuk perubahan background dan opacity */
     .transition {
-      transition: background-color 0.5s ease, opacity 0.5s ease, transform 0.3s ease;
+      transition: background-color 0.5s ease, opacity 0.5s ease;
     }
 
-    /* Animasi fade */
+    /* Animasi Fade */
     @keyframes fadeIn {
       from {
         opacity: 0;
-        transform: translateY(10px);
       }
-
       to {
         opacity: 1;
-        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
       }
     }
 
@@ -47,7 +51,11 @@
       animation: fadeIn 0.5s forwards;
     }
 
-    /* Navbar Mobile */
+    .fade-out {
+      animation: fadeOut 0.5s forwards;
+    }
+
+    /* Navbar Mobile: tetap di bawah dengan scroll horizontal bila item tidak muat */
     .mobile-navbar {
       position: fixed;
       bottom: 0;
@@ -63,15 +71,15 @@
       display: flex;
       gap: 1rem;
       padding: 0.5rem 1rem;
-      /* Agar tampilan item rata tengah dan scrollable */
       white-space: nowrap;
+      margin: 0;
     }
 
     .mobile-navbar li {
       flex: 0 0 auto;
     }
 
-    /* Gallery Grid */
+    /* Gallery Grid untuk tampilan profesional */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -119,11 +127,20 @@
           </li>
         </ul>
       </div>
+
+      <!-- Tombol Toggle Navbar Mobile -->
+      <div class="md:hidden">
+        <button class="text-white" onclick="toggleMobileNavbar()">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+          </svg>
+        </button>
+      </div>
     </div>
   </nav>
 
-  <!-- Navbar mode Handphone (selalu tampil di bawah dan dapat discroll secara horizontal) -->
-  <nav id="mobileNavbar" class="mobile-navbar md:hidden">
+  <!-- Navbar mode Handphone (dengan scroll horizontal bila item tidak muat) -->
+  <nav id="mobileNavbar" class="mobile-navbar md:hidden hidden transition">
     <ul>
       <li class="px-3 py-2 text-white hover:bg-white hover:text-blue-500 rounded transition"><a href="#home">Home</a></li>
       <li class="px-3 py-2 text-white hover:bg-white hover:text-blue-500 rounded transition"><a href="#projects">Projects</a></li>
@@ -132,6 +149,24 @@
       <li class="px-3 py-2 text-white hover:bg-white hover:text-blue-500 rounded transition"><a href="#contact">Contact</a></li>
     </ul>
   </nav>
+
+  <!-- JavaScript untuk toggle navbar mobile -->
+  <script>
+    function toggleMobileNavbar() {
+      const mobileNavbar = document.getElementById('mobileNavbar');
+      if (mobileNavbar.classList.contains('hidden')) {
+        mobileNavbar.classList.remove('hidden');
+        mobileNavbar.classList.add('fade-in');
+      } else {
+        mobileNavbar.classList.remove('fade-in');
+        mobileNavbar.classList.add('fade-out');
+        setTimeout(() => {
+          mobileNavbar.classList.add('hidden');
+          mobileNavbar.classList.remove('fade-out');
+        }, 500);
+      }
+    }
+  </script>
 
   <!-- Home Section dengan background image -->
   <section id="home" class="container mx-auto mb-8 p-8 bg-cover bg-center bg-no-repeat h-screen"
@@ -146,7 +181,8 @@
         </a>
       </div>
       <div class="w-full md:w-1/2 pl-4 flex justify-center relative hidden md:block">
-        <svg class="absolute inset-0 w-full h-full transform scale-125" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <svg class="absolute inset-0 w-full h-full transform scale-125" viewBox="0 0 200 200"
+          xmlns="http://www.w3.org/2000/svg">
           <path fill="#0F62FE"
             d="M15.3,-17.6C24.3,-14.4,39.3,-16,51.6,-9.4C64,-2.7,73.8,12.2,73.5,27.1C73.1,42,62.5,56.8,48.6,67.5C34.7,78.2,17.3,84.9,1.5,82.8C-14.3,80.7,-28.5,69.8,-40.8,58.5C-53.1,47.2,-63.3,35.6,-70.2,21.2C-77.1,6.8,-80.7,-10.3,-74.3,-22.4C-68,-34.6,-51.8,-41.9,-37.8,-43.3C-23.8,-44.8,-11.9,-40.5,-4.4,-34.5C3.1,-28.5,6.2,-20.7,15.3,-17.6Z"
             transform="translate(100 100)" />
@@ -156,26 +192,24 @@
     </div>
   </section>
 
-  <!-- Project Section -->
+  <!-- Project Section (tanpa link) -->
   <section id="projects" class="container mx-auto my-8 p-8 bg-white rounded shadow-lg fade-in">
     <h2 class="text-2xl font-bold mb-4">Projects</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Project Card 1 -->
-      <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition">
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition transform hover:scale-105">
         <img src="image/Management Asset.png" alt="Project 1" class="w-full h-56 object-cover rounded-t-lg">
         <div class="p-4">
           <h3 class="text-xl font-semibold mb-2">IT Management Asset</h3>
-          <p class="text-gray-600 mb-4">Program aplikasi berbasis web yang dibuat menggunakan React.js. Berfungsi untuk mendata asset dengan status dan kondisi, sehingga memudahkan pendataan.</p>
-          <!-- Link dihapus -->
+          <p class="text-gray-600 mb-4">Program aplikasi berbasis web yang dibuat menggunakan React.js. Berfungsi sebagai aplikasi pendataan asset dengan status dan kondisi yang memudahkan proses pendataan.</p>
         </div>
       </div>
       <!-- Project Card 2 -->
-      <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition">
+      <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition transform hover:scale-105">
         <img src="image/Cubethon 2D.png" alt="Project 2" class="w-full h-56 object-cover rounded-t-lg">
         <div class="p-4">
           <h3 class="text-xl font-semibold mb-2">Cubethon 2D</h3>
           <p class="text-gray-600 mb-4">Game yang dibuat menggunakan game engine Gdevelop 5.</p>
-          <!-- Link dihapus -->
         </div>
       </div>
     </div>
@@ -192,7 +226,7 @@
         </div>
         <h3 class="text-xl font-semibold text-black mb-2">IT Support Intern</h3>
         <span class="text-gray-600">PT. Sehati Bangunan Abadi | Juli 2023 - Desember 2023</span>
-        <p class="mt-2 text-gray-700">Bertugas dalam pemasangan dan pemeliharaan perangkat teknologi, pembuatan aplikasi Management Asset dan pengembangan website perusahaan.</p>
+        <p class="mt-2 text-gray-700">Bertugas dalam pemasangan dan pemeliharaan perangkat teknologi, pembuatan aplikasi Management Asset, serta pengembangan website perusahaan.</p>
       </div>
     </div>
   </section>
@@ -201,6 +235,7 @@
   <section id="gallery" class="container mx-auto my-8 p-8 bg-white rounded shadow-lg fade-in">
     <h2 class="text-2xl font-bold mb-4">Gallery</h2>
     <p class="pb-4">Gambar yang saya potret sendiri menggunakan HP</p>
+    <!-- Gallery Grid yang responsif dan estetik -->
     <div class="gallery-grid">
       <img src="image/anak.jpg" alt="Gambar 1">
       <img src="image/anak2.jpg" alt="Gambar 2">
@@ -218,23 +253,23 @@
   <!-- Contact Section -->
   <section id="contact" class="container mx-auto mt-8 p-8 bg-white rounded shadow-lg fade-in">
     <div class="flex flex-wrap -mx-4">
-      <!-- Contact Information -->
+      <!-- Informasi Kontak -->
       <div class="w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h2>
         <ul class="text-gray-600">
           <li class="flex items-center mb-4">
-            <!-- Phone Icon -->
+            <!-- Icon Telepon -->
             <svg class="h-6 w-6 text-gray-800 mr-5" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g transform="translate(-1.000000, -1.000000)" fill="#1D1D1D">
-                  <path d="M16.125,15.75 L13.875,15.75 C13.5,15.75 13.125,15.375 13.125,15 L13.125,12 C13.125,11.625 13.5,11.25 13.875,11.25 L16.125,11.25 C16.5,11.25 16.875,10.875 16.875,10.5 L16.875,8.25 C16.875,7.875 16.5,7.5 16.125,7.5 L13.875,7.5 C13.5,7.5 13.125,7.125 13.125,6.75 L13.125,3.75 C13.125,3.375 13.5,3 13.875,3 L16.125,3 C16.5,3 16.875,2.625 16.875,2.25 L16.875,0" />
+              <g stroke="none" stroke-width="1" fill="none">
+                <g transform="translate(-1 -1)" fill="#1D1D1D">
+                  <path d="M16.125,15.75 L13.875,15.75 C13.5,15.75 13.125,15.375 13.125,15 L13.125,12 C13.125,11.625 13.5,11.25 13.875,11.25 L16.125,11.25 C16.5,11.25 16.875,10.875 16.875,10.5 L16.875,8.25 C16.875,7.875 16.5,7.5 16.125,7.5 L13.875,7.5 C13.5,7.5 13.125,7.125 13.125,6.75 L13.125,3.75 C13.125,3.375 13.5,3 13.875,3 L16.125,3 C16.5,3 16.875,2.625 16.875,2.25 L16.875,0"/>
                 </g>
               </g>
             </svg>
             <span>+62 81259896787</span>
           </li>
           <li class="flex items-center mb-4">
-            <!-- Email Icon -->
+            <!-- Icon Email -->
             <svg class="h-6 w-6 text-gray-800 mr-5" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
               <path d="M25,27H7c-2.2,0-4-1.8-4-4V9c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4v14C29,25.2,27.2,27,25,27z" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
               <polyline points="3,10 16,18 29,10" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -242,7 +277,7 @@
             <a href="mailto:ovelius57@gmail.com" class="hover:text-blue-600">ovelius57@gmail.com</a>
           </li>
           <li class="flex items-center">
-            <!-- Location Icon -->
+            <!-- Icon Lokasi -->
             <svg class="h-6 w-6 text-gray-800 mr-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M12,2 C8.13,2 5,5.13 5,9 C5,13.17 9.42,18.92 11.24,21.11 C11.64,21.59 12.37,21.59 12.77,21.11 C14.58,18.92 19,13.17 19,9 C19,5.13 15.87,2 12,2 Z M12,11.5 C10.62,11.5 9.5,10.38 9.5,9 C9.5,7.62 10.62,6.5 12,6.5 C13.38,6.5 14.5,7.62 14.5,9 C14.5,10.38 13.38,11.5 12,11.5 Z" fill="#1D1D1D"></path>
             </svg>
@@ -250,6 +285,7 @@
           </li>
         </ul>
       </div>
+
       <!-- Ilustrasi Kontak -->
       <div class="w-full lg:w-1/2 px-4 flex justify-center items-center">
         <div class="w-full max-w-sm mx-auto">
