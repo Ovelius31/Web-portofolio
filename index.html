@@ -12,6 +12,7 @@
       scroll-behavior: smooth;
     }
 
+    /* Navbar umum */
     .sticky-top {
       position: -webkit-sticky;
       position: sticky;
@@ -19,31 +20,26 @@
       z-index: 50;
     }
 
+    /* Warna transparan */
     .transparent {
       background-color: rgba(128, 128, 128, 0.5);
     }
 
+    /* Transisi halus untuk perubahan background dan opacity */
     .transition {
-      transition: background-color 0.5s ease, opacity 0.5s ease;
+      transition: background-color 0.5s ease, opacity 0.5s ease, transform 0.3s ease;
     }
 
+    /* Animasi fade */
     @keyframes fadeIn {
       from {
         opacity: 0;
+        transform: translateY(10px);
       }
 
       to {
         opacity: 1;
-      }
-    }
-
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-      }
-
-      to {
-        opacity: 0;
+        transform: translateY(0);
       }
     }
 
@@ -51,117 +47,106 @@
       animation: fadeIn 0.5s forwards;
     }
 
-    .fade-out {
-      animation: fadeOut 0.5s forwards;
+    /* Navbar Mobile */
+    .mobile-navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #2d3748; /* bg-gray-800 */
+      z-index: 50;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+    }
+
+    .mobile-navbar ul {
+      display: flex;
+      gap: 1rem;
+      padding: 0.5rem 1rem;
+      /* Agar tampilan item rata tengah dan scrollable */
+      white-space: nowrap;
+    }
+
+    .mobile-navbar li {
+      flex: 0 0 auto;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 
 <body class="bg-gray-100">
 
-  <!-- Navbar mode laptop -->
+  <!-- Navbar mode Laptop -->
   <nav id="navbar" class="bg-gray-800 p-4 sticky-top transition">
     <div class="container mx-auto flex justify-between items-center">
       <div class="text-white font-bold text-xl">Ovel</div>
-      <!-- link mode Desktop -->
+      <!-- Link mode Desktop -->
       <div class="hidden md:flex">
         <ul class="flex">
-          <li
-            class="px-3 py-2 mx-2 text-white text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded">
+          <li class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded transition">
             <a href="#home">Home</a>
           </li>
-          <li
-            class="px-3 py-2 mx-2 text-white text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded">
+          <li class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded transition">
             <a href="#projects">Projects</a>
           </li>
-          <li
-            class="px-3 py-2 mx-2 text-white text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded">
+          <li class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded transition">
             <a href="#experience">Experience</a>
           </li>
-          <li
-            class="px-3 py-2 mx-2 text-white text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded">
+          <li class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded transition">
             <a href="#gallery">Gallery</a>
           </li>
-          <li
-            class="px-3 py-2 mx-2 text-white text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded">
+          <li class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded transition">
             <a href="#contact">Contact</a>
           </li>
         </ul>
       </div>
-
-      <!-- Icon mode Handphone -->
-      <div class="md:hidden">
-        <button class="text-white" onclick="toggleMobileNavbar()">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-        </button>
-      </div>
     </div>
   </nav>
 
-  <!-- Navbar mode Handphone -->
-  <nav id="mobileNavbar" class="md:hidden bg-gray-800 sticky-bottom transition z-50 w-full right-0 left-0 hidden">
-    <div class="container mx-auto flex justify-center items-center fixed bottom-0">
-      <ul class="flex bg-gray-800 w-screen py-2 justify-center">
-        <li
-          class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded gap-1">
-          <a href="#home">Home</a>
-        </li>
-        <li
-          class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded gap-1">
-          <a href="#projects">Projects</a>
-        </li>
-        <li
-          class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded gap-1">
-          <a href="#experience">Experience</a>
-        </li>
-        <li
-          class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded gap-1">
-          <a href="#gallery">Gallery</a>
-        </li>
-        <li
-          class="px-3 py-2 mx-2 text-white hover:bg-white hover:text-blue-500 active:bg-white active:text-blue-500 rounded gap-1">
-          <a href="#contact">Contact</a>
-        </li>
-      </ul>
-    </div>
+  <!-- Navbar mode Handphone (selalu tampil di bawah dan dapat discroll secara horizontal) -->
+  <nav id="mobileNavbar" class="mobile-navbar md:hidden">
+    <ul>
+      <li class="px-3 py-2 text-white hover:bg-white hover:text-blue-500 rounded transition"><a href="#home">Home</a></li>
+      <li class="px-3 py-2 text-white hover:bg-white hover:text-blue-500 rounded transition"><a href="#projects">Projects</a></li>
+      <li class="px-3 py-2 text-white hover:bg-white hover:text-blue-500 rounded transition"><a href="#experience">Experience</a></li>
+      <li class="px-3 py-2 text-white hover:bg-white hover:text-blue-500 rounded transition"><a href="#gallery">Gallery</a></li>
+      <li class="px-3 py-2 text-white hover:bg-white hover:text-blue-500 rounded transition"><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
 
-  <!-- JavaScript to toggle mobile navbar -->
-  <script>
-    function toggleMobileNavbar() {
-      const mobileNavbar = document.getElementById('mobileNavbar');
-      if (mobileNavbar.classList.contains('hidden')) {
-        mobileNavbar.classList.remove('hidden');
-        mobileNavbar.classList.add('fade-in');
-      } else {
-        mobileNavbar.classList.remove('fade-in');
-        mobileNavbar.classList.add('fade-out');
-        setTimeout(() => {
-          mobileNavbar.classList.add('hidden');
-          mobileNavbar.classList.remove('fade-out');
-        }, 500);
-      }
-    }
-  </script>
-
-  <!-- Home Section with background image -->
+  <!-- Home Section dengan background image -->
   <section id="home" class="container mx-auto mb-8 p-8 bg-cover bg-center bg-no-repeat h-screen"
     style="background-image: url('image/pexels-niezam-16516.jpg');">
-    <div class="bg-white bg-opacity-50 p-8 rounded shadow-lg flex items-center justify-center h-full">
+    <div class="bg-white bg-opacity-50 p-8 rounded shadow-lg flex items-center justify-center h-full fade-in">
       <div class="w-full md:w-1/2 pr-4">
         <h1 class="text-4xl font-bold text-black mb-4">Halo, Saya <span class="text-blue-700">Ovelius</span></h1>
-        <p class="text-lg pb-7">Selamat datang di portofolio saya. Di sini Anda akan menemukan semua tentang proyek dan
-          pengalaman saya.</p>
+        <p class="text-lg pb-7">Selamat datang di portofolio saya. Di sini Anda akan menemukan semua tentang proyek dan pengalaman saya.</p>
         <a href="https://drive.google.com/drive/folders/1rwhI_ZfVF7bZuaTI7Hng5IpItOiyF159?usp=sharing"
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-2xl">
           Unduh CV
         </a>
       </div>
       <div class="w-full md:w-1/2 pl-4 flex justify-center relative hidden md:block">
-        <svg class="absolute inset-0 w-full h-full transform scale-125" viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg">
+        <svg class="absolute inset-0 w-full h-full transform scale-125" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path fill="#0F62FE"
             d="M15.3,-17.6C24.3,-14.4,39.3,-16,51.6,-9.4C64,-2.7,73.8,12.2,73.5,27.1C73.1,42,62.5,56.8,48.6,67.5C34.7,78.2,17.3,84.9,1.5,82.8C-14.3,80.7,-28.5,69.8,-40.8,58.5C-53.1,47.2,-63.3,35.6,-70.2,21.2C-77.1,6.8,-80.7,-10.3,-74.3,-22.4C-68,-34.6,-51.8,-41.9,-37.8,-43.3C-23.8,-44.8,-11.9,-40.5,-4.4,-34.5C3.1,-28.5,6.2,-20.7,15.3,-17.6Z"
             transform="translate(100 100)" />
@@ -172,147 +157,77 @@
   </section>
 
   <!-- Project Section -->
-  <section id="projects" class="container mx-auto my-8 p-8 bg-white rounded shadow-lg">
+  <section id="projects" class="container mx-auto my-8 p-8 bg-white rounded shadow-lg fade-in">
     <h2 class="text-2xl font-bold mb-4">Projects</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Project cards -->
-      <div class="project-card bg-white p-6 rounded-lg shadow-lg shadow-2xl">
-        <img src="image/Management Asset.png" alt="Project 1" class="w-full h-190 object-cover rounded-t-lg">
+      <!-- Project Card 1 -->
+      <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition">
+        <img src="image/Management Asset.png" alt="Project 1" class="w-full h-56 object-cover rounded-t-lg">
         <div class="p-4">
           <h3 class="text-xl font-semibold mb-2">IT Management Asset</h3>
-          <p class="text-gray-600 mb-4">Program aplikasi berbasis web yang dibuat menggunakan React.js. Berfungsi
-            sebagai aplikasi yang digunakan untuk mendata asset dengan status dan kondisi, sehingga memudahkan dalam hal
-            pendataan</p>
-          <a href="https://github.com/Ovelius31/IT-Management-Asset.git" class="text-blue-500 font-semibold hover:text-blue-600 transition-colors">Lihat lebih lanjut
-            &rarr;</a>
+          <p class="text-gray-600 mb-4">Program aplikasi berbasis web yang dibuat menggunakan React.js. Berfungsi untuk mendata asset dengan status dan kondisi, sehingga memudahkan pendataan.</p>
+          <!-- Link dihapus -->
         </div>
       </div>
-      <div class="project-card bg-white p-6 rounded-lg shadow-lg shadow-2xl">
-        <img src="image/Cubethon 2D.png" alt="Project 2" class="w-full h-160 object-cover rounded-t-lg">
+      <!-- Project Card 2 -->
+      <div class="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition">
+        <img src="image/Cubethon 2D.png" alt="Project 2" class="w-full h-56 object-cover rounded-t-lg">
         <div class="p-4">
           <h3 class="text-xl font-semibold mb-2">Cubethon 2D</h3>
-          <p class="text-gray-600 mb-4">Game yang dibuat Menggunakan game engine Gdevelop 5.</p>
-          <a href="https://github.com/Ovelius31/Cubethon-2D.git" class="text-blue-500 font-semibold hover:text-blue-600 transition-colors">Lihat lebih lanjut
-            &rarr;</a>
+          <p class="text-gray-600 mb-4">Game yang dibuat menggunakan game engine Gdevelop 5.</p>
+          <!-- Link dihapus -->
         </div>
       </div>
     </div>
   </section>
 
   <!-- Experience Section -->
-  <section id="experience" class="container mx-auto my-8 p-8 bg-white rounded-lg shadow-xl">
+  <section id="experience" class="container mx-auto my-8 p-8 bg-white rounded-lg shadow-xl fade-in">
     <h2 class="text-2xl font-bold pb-12">Experience</h2>
     <div class="relative border-l-4 border-black ml-4">
-      <!-- First Experience -->
+      <!-- Experience Card -->
       <div class="mb-8 pl-6">
         <div class="absolute -left-4 w-8 h-8 rounded-full bg-black text-white flex items-center justify-center">
           <i class="fas fa-laptop-code"></i>
         </div>
         <h3 class="text-xl font-semibold text-black mb-2">IT Support Intern</h3>
         <span class="text-gray-600">PT. Sehati Bangunan Abadi | Juli 2023 - Desember 2023</span>
-        <p class="mt-2 text-gray-700">Bertugas dalam pemasangan dan pemeliharaan perangkat teknologi, pembuatan aplikasi
-          Management Asset dan pengembangan website perusahaan.</p>
+        <p class="mt-2 text-gray-700">Bertugas dalam pemasangan dan pemeliharaan perangkat teknologi, pembuatan aplikasi Management Asset dan pengembangan website perusahaan.</p>
       </div>
     </div>
   </section>
 
   <!-- Gallery Section -->
-  <section id="gallery" class="container mx-auto my-8 p-8 bg-white rounded shadow-lg">
+  <section id="gallery" class="container mx-auto my-8 p-8 bg-white rounded shadow-lg fade-in">
     <h2 class="text-2xl font-bold mb-4">Gallery</h2>
     <p class="pb-4">Gambar yang saya potret sendiri menggunakan HP</p>
-
-    <!-- Gallery Section mode Desktop -->
-    <div class="hidden md:grid md:grid-cols-4 md:gap-6">
-      <!-- Landscape Images -->
-      <div class="col-span-2 row-span-2">
-        <img src="image/anak.jpg" alt="Gambar 1" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <div class="col-span-2 row-span-2">
-        <img src="image/anak2.jpg" alt="Gambar 2" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <!-- Portrait Images -->
-      <div class="col-span-1">
-        <img src="image/Bulan.jpg" alt="Gambar 3" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <div class="col-span-1">
-        <img src="image/tower.jpg" alt="Gambar 4" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <div class="col-span-1">
-        <img src="image/Ulat.jpg" alt="Gambar 5" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <div class="col-span-1">
-        <img src="image/view1.jpg" alt="Gambar 6" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <div class="col-span-1">
-        <img src="image/view2.jpg" alt="Gambar 7" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <div class="col-span-1">
-        <img src="image/view3.jpg" alt="Gambar 8" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <div class="col-span-1">
-        <img src="image/view4.jpg" alt="Gambar 9" class="w-full h-full object-cover rounded-lg">
-      </div>
-      <div class="col-span-1">
-        <img src="image/kucing.jpg" alt="Gambar 9" class="w-full h-full object-cover rounded-lg">
-      </div>
-    </div>
-
-    <!-- Gallery Section mode HP -->
-    <div class="flex overflow-x-auto gap-4 py-4 md:hidden">
-      <div class="min-w-max">
-        <img src="image/anak.jpg" alt="Gambar 1" class="h-48 rounded-lg">
-      </div>
-      <div class="min-w-max">
-        <img src="image/anak2.jpg" alt="Gambar 2" class="h-48 rounded-lg">
-      </div>
-      <div class="min-w-max">
-        <img src="image/Bulan.jpg" alt="Gambar 3" class="h-48 rounded-lg">
-      </div>
-      <div class="min-w-max">
-        <img src="image/tower.jpg" alt="Gambar 4" class="h-48 rounded-lg">
-      </div>
-      <div class="min-w-max">
-        <img src="image/Ulat.jpg" alt="Gambar 5" class="h-48 rounded-lg">
-      </div>
-      <div class="min-w-max">
-        <img src="image/view1.jpg" alt="Gambar 6" class="h-48 rounded-lg">
-      </div>
-      <div class="min-w-max">
-        <img src="image/view2.jpg" alt="Gambar 7" class="h-48 rounded-lg">
-      </div>
-      <div class="min-w-max">
-        <img src="image/view3.jpg" alt="Gambar 8" class="h-48 rounded-lg">
-      </div>
-      <div class="min-w-max">
-        <img src="image/view4.jpg" alt="Gambar 9" class="h-48 rounded-lg">
-      </div>
+    <div class="gallery-grid">
+      <img src="image/anak.jpg" alt="Gambar 1">
+      <img src="image/anak2.jpg" alt="Gambar 2">
+      <img src="image/Bulan.jpg" alt="Gambar 3">
+      <img src="image/tower.jpg" alt="Gambar 4">
+      <img src="image/Ulat.jpg" alt="Gambar 5">
+      <img src="image/view1.jpg" alt="Gambar 6">
+      <img src="image/view2.jpg" alt="Gambar 7">
+      <img src="image/view3.jpg" alt="Gambar 8">
+      <img src="image/view4.jpg" alt="Gambar 9">
+      <img src="image/kucing.jpg" alt="Gambar 10">
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="container mx-auto mt-8 p-8 bg-white rounded shadow-lg">
+  <section id="contact" class="container mx-auto mt-8 p-8 bg-white rounded shadow-lg fade-in">
     <div class="flex flex-wrap -mx-4">
-
       <!-- Contact Information -->
       <div class="w-full lg:w-1/2 px-4 mb-8 lg:mb-0">
         <h2 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h2>
         <ul class="text-gray-600">
           <li class="flex items-center mb-4">
             <!-- Phone Icon -->
-            <svg class="h-6 w-6 text-gray-800 mr-5" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink">
-              <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g id="Rounded" transform="translate(-749.000000, -1263.000000)">
-                  <g id="Communication" transform="translate(100.000000, 1162.000000)">
-                    <g id="-Round-/-Communication-/-phone" transform="translate(646.000000, 98.000000)">
-                      <g>
-                        <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
-                        <path
-                          d="M19.23,15.26 L16.69,14.97 C16.08,14.9 15.48,15.11 15.05,15.54 L13.21,17.38 C10.38,15.94 8.06,13.63 6.62,10.79 L8.47,8.94 C8.9,8.51 9.11,7.91 9.04,7.3 L8.75,4.78 C8.63,3.77 7.78,3.01 6.76,3.01 L5.03,3.01 C3.9,3.01 2.96,3.95 3.03,5.08 C3.56,13.62 10.39,20.44 18.92,20.97 C20.05,21.04 20.99,20.1 20.99,18.97 L20.99,17.24 C21,16.23 20.24,15.38 19.23,15.26 Z"
-                          id="🔹Icon-Color" fill="#1D1D1D"></path>
-                      </g>
-                    </g>
-                  </g>
+            <svg class="h-6 w-6 text-gray-800 mr-5" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g transform="translate(-1.000000, -1.000000)" fill="#1D1D1D">
+                  <path d="M16.125,15.75 L13.875,15.75 C13.5,15.75 13.125,15.375 13.125,15 L13.125,12 C13.125,11.625 13.5,11.25 13.875,11.25 L16.125,11.25 C16.5,11.25 16.875,10.875 16.875,10.5 L16.875,8.25 C16.875,7.875 16.5,7.5 16.125,7.5 L13.875,7.5 C13.5,7.5 13.125,7.125 13.125,6.75 L13.125,3.75 C13.125,3.375 13.5,3 13.875,3 L16.125,3 C16.5,3 16.875,2.625 16.875,2.25 L16.875,0" />
                 </g>
               </g>
             </svg>
@@ -320,58 +235,22 @@
           </li>
           <li class="flex items-center mb-4">
             <!-- Email Icon -->
-            <svg class="h-6 w-6 text-gray-800 mr-5" version="1.1" id="Icons" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32 32"
-              style="enable-background:new 0 0 32 32;" xml:space="preserve">
-              <style type="text/css">
-                .st0 {
-                  fill: none;
-                  stroke: #000000;
-                  stroke-width: 2;
-                  stroke-linecap: round;
-                  stroke-linejoin: round;
-                  stroke-miterlimit: 10;
-                }
-
-                .st1 {
-                  fill: none;
-                  stroke: #000000;
-                  stroke-width: 2;
-                  stroke-linejoin: round;
-                  stroke-miterlimit: 10;
-                }
-              </style>
-              <path class="st0"
-                d="M25,27H7c-2.2,0-4-1.8-4-4V9c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4v14C29,25.2,27.2,27,25,27z"></path>
-              <polyline class="st0" points="3,10 16,18 29,10 "></polyline>
+            <svg class="h-6 w-6 text-gray-800 mr-5" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path d="M25,27H7c-2.2,0-4-1.8-4-4V9c0-2.2,1.8-4,4-4h18c2.2,0,4,1.8,4,4v14C29,25.2,27.2,27,25,27z" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <polyline points="3,10 16,18 29,10" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline>
             </svg>
             <a href="mailto:ovelius57@gmail.com" class="hover:text-blue-600">ovelius57@gmail.com</a>
           </li>
           <li class="flex items-center">
             <!-- Location Icon -->
-            <svg class="h-6 w-6 text-gray-800 mr-5" width="14px" height="20px" viewBox="0 0 14 20" version="1.1"
-              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g id="Rounded" transform="translate(-377.000000, -1306.000000)">
-                  <g id="Communication" transform="translate(100.000000, 1162.000000)">
-                    <g id="-Round-/-Communication-/-location_on" transform="translate(272.000000, 142.000000)">
-                      <g>
-                        <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
-                        <path
-                          d="M12,2 C8.13,2 5,5.13 5,9 C5,13.17 9.42,18.92 11.24,21.11 C11.64,21.59 12.37,21.59 12.77,21.11 C14.58,18.92 19,13.17 19,9 C19,5.13 15.87,2 12,2 Z M12,11.5 C10.62,11.5 9.5,10.38 9.5,9 C9.5,7.62 10.62,6.5 12,6.5 C13.38,6.5 14.5,7.62 14.5,9 C14.5,10.38 13.38,11.5 12,11.5 Z"
-                          id="🔹Icon-Color" fill="#1D1D1D"></path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </g>
+            <svg class="h-6 w-6 text-gray-800 mr-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12,2 C8.13,2 5,5.13 5,9 C5,13.17 9.42,18.92 11.24,21.11 C11.64,21.59 12.37,21.59 12.77,21.11 C14.58,18.92 19,13.17 19,9 C19,5.13 15.87,2 12,2 Z M12,11.5 C10.62,11.5 9.5,10.38 9.5,9 C9.5,7.62 10.62,6.5 12,6.5 C13.38,6.5 14.5,7.62 14.5,9 C14.5,10.38 13.38,11.5 12,11.5 Z" fill="#1D1D1D"></path>
             </svg>
             <span>Pasuruan, Jawa Timur, Indonesia</span>
           </li>
         </ul>
       </div>
-
-      <!-- Creative Contact Illustration -->
+      <!-- Ilustrasi Kontak -->
       <div class="w-full lg:w-1/2 px-4 flex justify-center items-center">
         <div class="w-full max-w-sm mx-auto">
           <img src="image/pexels-thaislooc-10635258.jpg" alt="Contact Illustration" class="rounded-lg shadow-lg">
@@ -388,6 +267,5 @@
   </footer>
 
 </body>
-
 
 </html>
